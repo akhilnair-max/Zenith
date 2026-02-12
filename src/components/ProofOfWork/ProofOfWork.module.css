@@ -1,0 +1,59 @@
+.powSection {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-white);
+    display: flex;
+    align-items: center;
+    position: relative;
+}
+
+.track {
+    display: flex;
+    align-items: center;
+    padding-left: 30vw;
+    /* (100vw - 40vw)/2 = 30vw to center first image */
+    padding-right: 50vw;
+    width: max-content;
+    flex-shrink: 0;
+}
+
+.imageWrapper {
+    height: 60vh;
+    /* "cropped vertically so none feel complete" */
+    width: 40vw;
+    /* Arbitrary width based on aspect ratio */
+    margin-right: 10vw;
+    position: relative;
+    transition: opacity 0.3s ease-out, filter 0.3s ease-out;
+    opacity: 0.3;
+    filter: grayscale(100%);
+    flex-shrink: 0;
+}
+
+.imageWrapper.active {
+    opacity: 1;
+    filter: grayscale(0%);
+}
+
+.projectImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.supportingText {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
+    font-size: 0.875rem;
+    color: var(--color-text-secondary);
+    max-width: 300px;
+    text-align: right;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.supportingText.visible {
+    opacity: 1;
+}

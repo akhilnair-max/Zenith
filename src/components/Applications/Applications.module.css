@@ -1,0 +1,99 @@
+.section {
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--color-white);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gridContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150vw;
+    /* Arbitrary large width for diagonal scroll */
+    height: 150vh;
+    /* Arbitrary large height */
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 5vh;
+    padding: 5vh;
+    transform-origin: center center;
+    will-change: transform;
+}
+
+.tile {
+    width: 40vw;
+    height: 40vw;
+    /* Square */
+    position: relative;
+    transition: transform 0.4s cubic-bezier(0.25, 0.1, 0.25, 1.0), filter 0.4s ease;
+    transform-origin: center center;
+    filter: brightness(0.8);
+}
+
+.tile.active {
+    z-index: 10;
+    filter: brightness(1);
+    /* Scale dominance applied via JS or here? JS is better for scrub sync, but CSS transition is smoother for "snap"? 
+     Prompt says "When a tile enters focus, assert it through relative scale dominance... other tiles recede".
+     I'll handle scale in JS or class. Class is easier.
+  */
+    transform: scale(1.1);
+}
+
+.tile:not(.active) {
+    transform: scale(0.9);
+}
+
+/* Staggering using nth-child */
+.tile:nth-child(2) {
+    margin-top: 20vh;
+    /* Stagger */
+}
+
+.tile:nth-child(3) {
+    margin-top: -10vh;
+    /* Stagger */
+    margin-left: 10vw;
+}
+
+.tile:nth-child(4) {
+    margin-top: 10vh;
+}
+
+.image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.label {
+    position: absolute;
+    bottom: 2rem;
+    left: 2rem;
+    color: white;
+    font-size: 1.5rem;
+    font-weight: 500;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.viewPrompt {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: rgba(255, 255, 255, 0.9);
+    padding: 1rem 2rem;
+    color: black;
+    opacity: 0;
+    transition: opacity 0.3s;
+    pointer-events: none;
+}
+
+.tile:hover .viewPrompt {
+    opacity: 1;
+}
